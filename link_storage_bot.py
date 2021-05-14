@@ -1,4 +1,5 @@
-import telebot from telebot import types
+import telebot
+from telebot import types
 import requests
 import os
 from datetime import date
@@ -36,7 +37,7 @@ def telegraph_page(url:str):
 
 def send_html(url, chat_id):
     name = parse_url_to_filename(url)
-    command = f'webpage2html -q {url} > {name}.html'
+    command = f'webpage2html {url} > {name}.html'
     #import subprocess
     #direct_output = subprocess.check_output('ls', shell=True) #could be anything here.
     os.system(command)
