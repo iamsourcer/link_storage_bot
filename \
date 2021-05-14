@@ -1,0 +1,43 @@
+import telebot
+from telebot import types
+import requests
+import os
+from datetime import date
+
+TOKEN='1707490658:AAHB0YRnk0_TrV8vUur-TEjpEjbd60s13Lk'
+
+bot = telebot.TeleBot(TOKEN, parse_mode=None)
+
+def parse_url_to_filename(url:str) -> str:
+    name = url.replace('https://', '').replace('http://', '').replace('/', '___')
+    return f'{name}-{date.today()}'
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, "Welcome to Link Storage BOT!\n\nFeed me with an interesting URL and I'll keep it for YOU")
+
+@bot.message_handler(func=lambda m: True)
+def function_name(message):
+    print('>>> ', message.text)
+    url = None
+    for ent in message.entities:
+        if ent.type == 'url':
+            print(ent)
+            url = message.text[ent.offset:ent.length]
+    if url:
+        print('url >>>', url)
+    else:
+        print('No hay nada')
+    #name = parse_url_to_filename(url=message.text)
+    #cmd = f'capture-website {message.text} --output=screenshots/{name}.png '
+    #print(cmd)
+    #bot.send_message(message.chat.id, 'Please wait, generating capture...')
+    #os.system(cmd)
+    #photo = open(f'screenshots/{name}.png', 'rb')
+    #bot.send_photo(message.chat.id, photo, caption=message.text)
+    #os.remove(photo.name)
+bot.polling()
+
+# parsear bien la URL y validarla 
+# hacer la captura comun, mandarla como img y despues full como archivo
+# www.nuxtjs.org/docs/2.x/directory-structure/store
