@@ -37,13 +37,19 @@ def telegraph_page(url:str):
 
 def send_html(url, chat_id):
     name = parse_url_to_filename(url)
-    command = f'webpage2html {url} > {name}.html'
+
+    #command = f'webpage2html {url}'
     #import subprocess
-    #direct_output = subprocess.check_output('ls', shell=True) #could be anything here.
+    #website = subprocess.check_output(command, shell=True) #could be anything here.
+
+    command = f'webpage2html {url} > {name}.html'
     os.system(command)
     website = open(f'{name}.html', 'rb')
+
     #website = generate(url)
+
     bot.send_document(chat_id, website, caption=url)
+    os.remove(website.name)
     return
 
 def send_screenshot(url, chat_id, fullpage=False):
