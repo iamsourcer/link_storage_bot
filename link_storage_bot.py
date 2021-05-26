@@ -3,17 +3,17 @@ from telebot import types
 import requests
 import os
 from datetime import date
-from readabilipy import simple_json_from_html_string
-from telegraph import Telegraph
-from telegraph.upload import upload_file
-from webpage2html import generate
+#from readabilipy import simple_json_from_html_string
+#from telegraph import Telegraph
+#from telegraph.upload import upload_file
+#from webpage2html import generate
 
 TOKEN='1707490658:AAHB0YRnk0_TrV8vUur-TEjpEjbd60s13Lk'
 
 bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
-telegraph = Telegraph()
-telegraph.create_account(short_name='lsbot')
+#telegraph = Telegraph()
+#telegraph.create_account(short_name='lsbot')
 
 def parse_url_to_filename(url:str) -> str:
     name = url.replace('https://', '').replace('http://', '').replace('/', '___')
@@ -87,7 +87,9 @@ def main_handler(message):
     send_html(url, message.chat.id)
     #send_screenshot(url, message.chat.id, fullpage=True)
 
-bot.polling()
 
-# como extraigo el texto de un articulo 
-# www.nuxtjs.org/docs/2.x/directory-structure/store
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
+
+#bot.polling()
+
